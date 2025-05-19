@@ -6,7 +6,6 @@ private:
     string nome;
     string cpf;
     string numeroBilhete;
-    string noaew;
 
 public:
     // Construtor
