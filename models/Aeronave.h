@@ -1,16 +1,20 @@
-#include <iostream>
+#ifndef AERONAVE_H
+#define AERONAVE_H
+
 #include <string>
 using namespace std;
 
 class Aeronave {
 private:
-    int codigo, capacidade;
+    int codigo;
+    int capacidade;
     string modelo;
-    double velocidadeMedia, autonomiaDeVoo;
+    double velocidadeMedia;
+    double autonomiaDeVoo;
 
 public:
-    // Construtor
-    Aeronave(int codigo, int capacidade, string modelo, double velocidadeMedia, double autonomiaDeVoo) {
+     // Construtor
+     Aeronave(int codigo, int capacidade, string modelo, double velocidadeMedia, double autonomiaDeVoo) {
         this->codigo = codigo;
         this->capacidade = capacidade;
         this->modelo = modelo;
@@ -59,5 +63,6 @@ public:
     void setAutonomiaDeVoo(double novaAutonomia) {
         autonomiaDeVoo = novaAutonomia;
     }
-
 };
+
+#endif // AERONAVE_H

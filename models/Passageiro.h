@@ -1,9 +1,11 @@
-#include <string>
+#ifndef PASSAGEIRO_H
+#define PASSAGEIRO_H
+
+#include "./Pessoa.h"
 using namespace std;
 
-class Passageiro {
+class Passageiro : public Pessoa {
 private:
-    string nome;
     string cpf;
     string numeroBilhete;
 
@@ -16,10 +18,7 @@ public:
     }
 
     // Getters
-    string getNome() const {
-        return nome;
-    }
-
+  
     string getCpf() const {
         return cpf;
     }
@@ -29,9 +28,6 @@ public:
     }
 
     // Setters
-    void setNome(string novoNome) {
-        nome = novoNome;
-    }
 
     void setCpf(string novoCpf) {
         cpf = novoCpf;
@@ -41,3 +37,5 @@ public:
         numeroBilhete = novoBilhete;
     }
 };
+
+#endif 
