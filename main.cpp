@@ -1,11 +1,12 @@
 #include <string>
-#include "./models/Aeronave.h"
-#include "./models/Piloto.h"
-#include "./models/Passageiro.h"
+#include "./include/Aeronave.h"
+#include "./include/Piloto.h"
+#include "./include/Passageiro.h"
 #include <vector>
 #include <iostream>
 #include <limits>
 using namespace std;
+// comando para compilar: g++ -Iinclude main.cpp src/*.cpp -o sistemaDeVoos
 
 int exibirMenu()
 {
