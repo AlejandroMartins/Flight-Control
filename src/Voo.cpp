@@ -1,9 +1,12 @@
 #include "../include/Voo.h"
+#include <iostream>
+using namespace std;
 
 // Construtor
 Voo::Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida,
          int numeroDeEscalas, double tempoEstimado,
-         Aeronave aeronave, Piloto comandante, Piloto primeiroOficial)
+         const Aeronave& aeronave, const Piloto& comandante, const Piloto& primeiroOficial)
+    : aeronave(aeronave), comandante(comandante), primeiroOficial(primeiroOficial)
 {
     this->codigo = codigo;
     this->origem = origem;
@@ -41,3 +44,19 @@ void Voo::setTempoEstimado(double tempo) { tempoEstimado = tempo; }
 void Voo::setAeronave(const Aeronave &a) { aeronave = a; }
 void Voo::setComandante(const Piloto &p) { comandante = p; }
 void Voo::setPrimeiroOficial(const Piloto &p) { primeiroOficial = p; }
+
+void Voo::listarPassageiros() {
+    cout << "Passageiros do voo " << codigo << ":\n";
+    if (passageiros.empty()) {
+        cout << "Nenhum passageiro embarcado.\n";
+        return;
+    }
+
+    for (const auto& p : passageiros) {
+        cout << "- " << p.getNome() << "\n";  // assumindo Passageiro tem método getNome()
+    }
+}
+
+void Voo::adicionarPassageiro(const Passageiro &p){
+    passageiros.push_back(p);
+}
