@@ -1,12 +1,12 @@
 #ifndef PASSAGEIRO_H
 #define PASSAGEIRO_H
 
+#include "Pessoa.h"
 #include <string>
 using namespace std;
 
-class Passageiro {
+class Passageiro : public Pessoa {
 private:
-    string nome;
     string cpf;
     string numeroBilhete;
 
@@ -15,14 +15,12 @@ public:
     Passageiro(string nome, string cpf, string numeroBilhete);
 
     // Getters
-    string getNome() const;
     string getCpf() const;
     string getNumeroBilhete() const;
 
     // Setters
-    void setNome(string novoNome);
     void setCpf(string novoCpf);
     void setNumeroBilhete(string novoBilhete);
 };
 
-#endif // PASSAGEIRO_H
+#endif
