@@ -204,11 +204,14 @@ int main()
             cin >> codigoAeronave;
             limparBuffer();
 
+            // Verificando que sera passado um codigo de aeronave valido
             int iAeronave = encontrarIndiceAeronavePorCodigo(aeronaves, codigoAeronave);
-            if (iAeronave == -1)
+            while (iAeronave == -1)
             {
-                cout << "Essa aeronave não existe" << endl;
-                continue;
+                cout << "Essa aeronave não existe, digite outro código:" << endl;
+                cin >> codigoAeronave;
+                limparBuffer();
+                iAeronave = encontrarIndiceAeronavePorCodigo(aeronaves, codigoAeronave);
             }
 
             // Aqui assumimos que você cadastrou pilotos antes e quer pedir matrícula como string
@@ -217,12 +220,28 @@ int main()
             cout << "Digite a matrícula do Comandante: ";
             getline(cin, matriculaComandante);
 
+            // Verificando que será passado uma matricula valida
             int iComandante = encontrarIndicePilotoPorMatricula(pilotos, matriculaComandante);
-
+            while (iComandante == -1)
+            {
+                cout << "Essa matrícula não existe, digite outra:" << endl;
+                getline(cin, matriculaComandante);
+                iComandante = encontrarIndicePilotoPorMatricula(pilotos, matriculaComandante);
+            }
+            
+            
             cout << "Digite a matrícula do Primeiro Oficial: ";
             getline(cin, matriculaPrimeiroOficial);
 
+            // Verificando que será passada uma matricula valida
             int iPrimeiroOficial = encontrarIndicePilotoPorMatricula(pilotos, matriculaPrimeiroOficial);
+            while (iPrimeiroOficial == - 1)
+            {
+                cout << "Essa matrícula não existe, digite outra:" << endl;
+                getline(cin, matriculaPrimeiroOficial);
+                iPrimeiroOficial = encontrarIndicePilotoPorMatricula(pilotos, matriculaPrimeiroOficial);
+            }
+            
 
             Aeronave &aeronaveSelecionada = aeronaves[iAeronave];
             Piloto &comandanteSelecionado = pilotos[iComandante];
@@ -243,21 +262,26 @@ int main()
             cin >> codigoVoo;
             limparBuffer();
 
+            // Garantindo que será passado um codigo válido
             int iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
-            if (iVoo == -1)
+            while (iVoo == -1)
             {
-                cout << "Esse voo não existe" << endl;
-                continue;
+                cout << "Esse voo não existe, digite novamente:" << endl;
+                cin >> codigoVoo;
+                limparBuffer();
+                iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
             }
 
             cout << "Digite o CPF do passageiro: ";
             getline(cin, cpf);
 
+            // Garantindo que será passado um passageiro válido
             int iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
-            if (iPassageiro == -1)
+            while (iPassageiro == -1)
             {
-                cout << "Esse passageiro não existe" << endl;
-                continue;
+                cout << "Esse passageiro não existe, digite novamente:" << endl;
+                getline(cin, cpf);
+                iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
             }
 
             voos[iVoo].adicionarPassageiro(passageiros[iPassageiro]);
@@ -285,11 +309,13 @@ int main()
             cout << "Digite o código do voo: ";
             cin >> codigoVoo;
 
+            // Garantindo que será passado um codigo válido
             int iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
-            if (iVoo == -1)
+            while (iVoo == -1)
             {
-                cout << "Esse voo não existe" << endl;
-                continue;
+                cout << "Esse voo não existe, digite novamente:" << endl;
+                cin >> codigoVoo;
+                iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
             }
             voos[iVoo].listarPassageiros();
         }
