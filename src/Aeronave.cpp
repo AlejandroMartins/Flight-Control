@@ -50,3 +50,19 @@ void Aeronave::setVelocidadeMedia(double novaVelocidade) {
 void Aeronave::setAutonomiaDeVoo(double novaAutonomia) {
     autonomiaDeVoo = novaAutonomia;
 }
+
+std::istream& operator>>(std::istream& is, Aeronave& aeronave) {
+    string codigo, modelo;
+    int capacidade;
+    float velocidadeMedia, autonomia;
+    
+    char delim;
+    is >> codigo >> delim
+       >> capacidade >> delim
+       >> modelo >> delim
+       >> velocidadeMedia >> delim
+       >> autonomia >> delim;
+    
+    aeronave = Aeronave(codigo, capacidade, modelo, velocidadeMedia, autonomia);
+    return is;
+}
