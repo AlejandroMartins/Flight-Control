@@ -93,14 +93,18 @@ int main()
     vector<Voo> voos;
 
     // Criando um objeto de cada classe para iniciar o sistema com dados
-    aeronaves.push_back(Aeronave(1, 180, "Boeing 737", 850.0, 5000.0));
+    aeronaves.push_back(Aeronave(1429, 180, "Boeing 737", 850.0, 5000.0));
     pilotos.push_back(Piloto("Carlos Silva", "MAT123", "Breve123", 1500.0));
-    passageiros.push_back(Passageiro("Ana Souza", "123.456.789-00", "BIL123"));
+    Passageiro passenger("Ana Souza", "123.456.789-00", "BIL123");
+    passageiros.push_back(passenger);
 
     // Criar um voo usando os objetos acima
     Voo vooInicial(1001, "São Paulo", "Rio de Janeiro", 430.0, "08:00",
                    0, 1.0,
                    aeronaves[0], pilotos[0], pilotos[0]); // só para exemplo, mesmo piloto como comandante e 1º oficial
+    
+    // adcionando passenger ao voo para testar
+    vooInicial.adicionarPassageiro(passenger);
 
     voos.push_back(vooInicial);
 

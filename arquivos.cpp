@@ -62,10 +62,20 @@ void salvarDados(const vector<Aeronave> &aeronaves,
                << v.getDestino() << ","
                << v.getDistancia() << ","
                << v.getHoraDeSaida() << ","
-               << v.getPassageiros().size() << ","
                << v.getAeronave().getCodigo() << ","
                << v.getComandante().getMatricula() << ","
-               << v.getPrimeiroOficial().getMatricula() << endl;
+               << v.getPrimeiroOficial().getMatricula() << ","
+               << v.getPassageiros().size() << ",";
+
+            // Escrever os CPFs dos passageiros separados por '|'
+            const auto &passageiros = v.getPassageiros();
+            for (int i = 0; i < passageiros.size(); i++)
+            {
+                fv << passageiros[i].getCpf();
+                if (i != passageiros.size() - 1)
+                    fv << "|";
+            }
+            fv << endl;
         }
         fv.close();
     }
