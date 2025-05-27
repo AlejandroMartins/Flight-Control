@@ -22,8 +22,6 @@ public:
     void setCpf(string novoCpf);
     void setNumeroBilhete(string novoBilhete);
 
-    // sobrecarga do operador >>
-    friend std::istream& operator>>(std::istream& is, Passageiro& passageiro);
 };
 
 #endif

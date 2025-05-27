@@ -1,4 +1,4 @@
-#include "../include/Aeronave.h"
+#include "Aeronave.h"
 
 // Construtor
 Aeronave::Aeronave(int codigo, int capacidade, string modelo, double velocidadeMedia, double autonomiaDeVoo) {
@@ -7,6 +7,14 @@ Aeronave::Aeronave(int codigo, int capacidade, string modelo, double velocidadeM
     this->modelo = modelo;
     this->velocidadeMedia = velocidadeMedia;
     this->autonomiaDeVoo = autonomiaDeVoo;
+}
+
+Aeronave::Aeronave(){
+    codigo = 0;
+    capacidade = 0;
+    modelo = "";
+    velocidadeMedia = 0;
+    autonomiaDeVoo = 0;
 }
 
 // Getters
@@ -51,18 +59,3 @@ void Aeronave::setAutonomiaDeVoo(double novaAutonomia) {
     autonomiaDeVoo = novaAutonomia;
 }
 
-std::istream& operator>>(std::istream& is, Aeronave& aeronave) {
-    string codigo, modelo;
-    int capacidade;
-    float velocidadeMedia, autonomia;
-    
-    char delim;
-    is >> codigo >> delim
-       >> capacidade >> delim
-       >> modelo >> delim
-       >> velocidadeMedia >> delim
-       >> autonomia >> delim;
-    
-    aeronave = Aeronave(codigo, capacidade, modelo, velocidadeMedia, autonomia);
-    return is;
-}

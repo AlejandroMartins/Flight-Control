@@ -26,9 +26,10 @@ private:
 
 public:
     // Construtor
-   Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida,
+    Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida,
          int numeroDeEscalas, double tempoEstimado,
          const Aeronave& aeronave, const Piloto& comandante, const Piloto& primeiroOficial);
+    Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida, int numeroDeEscalas, double tempoEstimado);
 
     // Getters
     int getCodigo() const;
@@ -55,9 +56,7 @@ public:
     void setAeronave(const Aeronave &a);
     void setComandante(const Piloto &p);
     void setPrimeiroOficial(const Piloto &p);
-    // void adicionarPassageiro(const Passageiro *passagerio);
-    // void removerPassageiro(const Passageiro *passagerio);
-
+    
     // Outros métodos para gerenciar passageiros podem ser adicionados aqui
     void listarPassageiros();
     void adicionarPassageiro(const Passageiro &p);

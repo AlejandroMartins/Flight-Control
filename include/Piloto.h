@@ -15,6 +15,7 @@ private:
 public:
     // Construtor
     Piloto(string nome, string matricula, string breve, double horasDeVoo);
+    Piloto();
 
     // Getters
     string getMatricula() const;
@@ -26,8 +27,6 @@ public:
     void setBreve(string novoBreve);
     void setHorasDeVoo(double novasHoras);
 
-    //sobrecarga do operador >>
-    friend std::istream& operator>>(std::istream& is, Piloto& piloto);
 };
 
 #endif // PILOTO_H

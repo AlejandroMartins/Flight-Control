@@ -8,6 +8,12 @@ Piloto::Piloto(string nome, string matricula, string breve, double horasDeVoo)
     this->breve = breve;
     this->horasDeVoo = horasDeVoo;
 }
+Piloto::Piloto(){
+    nome = "";
+    matricula = "";
+    breve = "";
+    horasDeVoo = 0;
+}
 
 // Getters
 string Piloto::getMatricula() const
@@ -39,18 +45,4 @@ void Piloto::setBreve(string novoBreve)
 void Piloto::setHorasDeVoo(double novasHoras)
 {
     horasDeVoo = novasHoras;
-}
-
-std::istream& operator>>(std::istream& is, Piloto& piloto) {
-    string nome, matricula, breve;
-    int horasDeVoo;
-    char delim;
-
-    is >> nome >> delim
-       >> matricula >> delim
-       >> breve >> delim
-       >> horasDeVoo >> delim;
-    
-    piloto = Piloto(nome, matricula, breve, horasDeVoo);
-    return is;
 }

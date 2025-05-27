@@ -15,6 +15,7 @@ private:
 public:
     // Construtor
     Aeronave(int codigo, int capacidade, string modelo, double velocidadeMedia, double autonomiaDeVoo);
+    Aeronave();
 
     // Getters
     int getCodigo() const;
@@ -30,8 +31,6 @@ public:
     void setVelocidadeMedia(double novaVelocidade);
     void setAutonomiaDeVoo(double novaAutonomia);
 
-    //sobrecarga do operador >>
-    friend std::istream& operator>>(std::istream& is, Aeronave& aeronave);
 };
 
 #endif // AERONAVE_H

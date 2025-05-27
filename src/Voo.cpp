@@ -20,6 +20,16 @@ Voo::Voo(int codigo, string origem, string destino, double distancia, string hor
     this->primeiroOficial = primeiroOficial;
 }
 
+Voo::Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida, int numeroDeEscalas, double tempoEstimado){
+    this->codigo = codigo;
+    this->origem = origem;
+    this->destino = destino;
+    this->distancia = distancia;
+    this->horaDeSaida = horaDeSaida;
+    this->numeroDeEscalas = numeroDeEscalas;
+    this->tempoEstimado = tempoEstimado;
+}
+
 // Getters
 int Voo::getCodigo() const { return codigo; }
 string Voo::getOrigem() const { return origem; }
