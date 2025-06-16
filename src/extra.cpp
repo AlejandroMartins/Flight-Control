@@ -22,3 +22,18 @@ void passageiroMaisVoo(vector<Passageiro> &passageiros){
         }
     }
 }
+
+void voo_quase_cheio(vector<Voo> &voos){
+    for(int i = 0; i < voos.size(); i++)
+    {
+        bool teste;
+        teste = false;
+        if(voos[i].qtdPassageiros() >= (0.9 * voos[i].getAeronave().getCapacidade()))
+        {
+            cout << "   voo "<< voos[i].getCodigo() << endl;
+            teste = true;
+        }
+        if(!teste)
+            cout<< "    nenhum" << endl;
+    }
+}

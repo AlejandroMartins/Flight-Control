@@ -248,6 +248,12 @@ int main()
                 iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
             }
 
+            if(voos[iVoo].qtdPassageiros() == voos[iVoo].getAeronave().getCapacidade())
+            {
+                cout << "A aeronave desse voo ja esta cheia!!!" << endl;
+                continue;
+            }
+
             cout << "Digite o CPF do passageiro: ";
             getline(cin, cpf);
 
@@ -255,7 +261,7 @@ int main()
             int iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
             while ((iPassageiro == -1) || voos[iVoo].passageiro_listado(cpf))
             {
-                cout << "Esse passageiro nao existe, ou ja esta nesse voo, digite novamente:" << endl;
+                cout << "Esse passageiro nao existe, ou ja esta inserido nesse voo, digite novamente:";
                 getline(cin, cpf);
                 iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
             }
@@ -300,10 +306,12 @@ int main()
         else if (opcao == 8)
         {
             // Gerar relatórios e estatísticas
-            cout << "Numero total de voos cadastrados: " << (int)voos.size() << endl;
-            cout << "Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl;
-            cout << "Passageiros que participam de mais de um voo:"<< endl;
+            cout << "- Numero total de voos cadastrados: " << (int)voos.size() << endl;
+            cout << "- Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl;
+            cout << "- Passageiros que participam de mais de um voo:"<< endl;
             passageiroMaisVoo(passageiros);
+            cout << "- Voos que atingiram pelo menos 90%" << " da capacidade maxima:" << endl;
+            voo_quase_cheio(voos);
 
         }
         else if (opcao == 9)
