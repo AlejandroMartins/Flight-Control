@@ -60,6 +60,9 @@ public:
     // Outros métodos para gerenciar passageiros podem ser adicionados aqui
     void listarPassageiros();
     void adicionarPassageiro(const Passageiro &p);
+
+    // funçao para saber a quantidade de passageiros em um voo
+    int qtdPassageiros();
 };
 
 #endif // VOO_H

@@ -5,6 +5,7 @@
 #include "./include/Voo.h"
 #include "./include/arquivos.h"
 #include "./include/pesquisa.h"
+#include "./include/extra.h"
 #include <vector>
 #include <iostream>
 #include <limits>
@@ -297,7 +298,9 @@ int main()
         else if (opcao == 8)
         {
             // Gerar relatórios e estatísticas
-            cout << "Função de relatórios ainda nao implementada." << endl;
+            cout << "Numero total de voos cadastrados: " << (int)voos.size() << endl;
+            cout << "Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl;
+
         }
         else if (opcao == 9)
         {

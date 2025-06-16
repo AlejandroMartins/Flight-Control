@@ -70,3 +70,7 @@ void Voo::listarPassageiros() {
 void Voo::adicionarPassageiro(const Passageiro &p){
     passageiros.push_back(p);
 }
+
+int Voo::qtdPassageiros(){
+    return passageiros.size();
+}
