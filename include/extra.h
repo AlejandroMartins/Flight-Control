@@ -13,4 +13,6 @@ using namespace std;
 
 double media_passageiro_por_voo(vector<Voo> &voos);
 
+void passageiroMaisVoo(vector<Passageiro> &passageiros);
+
 #endif

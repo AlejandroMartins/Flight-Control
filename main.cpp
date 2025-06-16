@@ -300,7 +300,9 @@ int main()
             // Gerar relatórios e estatísticas
             cout << "Numero total de voos cadastrados: " << (int)voos.size() << endl;
             cout << "Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl;
-            
+            cout << "Passageiros que participam de mais de um voo:"<< endl;
+            passageiroMaisVoo(passageiros);
+
         }
         else if (opcao == 9)
         {

@@ -12,3 +12,13 @@ double media_passageiro_por_voo(vector<Voo> &voos){
 
     return (total / totVoos);
 }
+
+void passageiroMaisVoo(vector<Passageiro> &passageiros){
+    for(int i = 0; i < passageiros.size(); i++)
+    {
+        if(passageiros[i].qtd_voos() > 1)
+        {
+            cout << "   "<< passageiros[i].getNome() << ": " << passageiros[i].qtd_voos() << " voos"<< endl;
+        }
+    }
+}
