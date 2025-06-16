@@ -67,8 +67,9 @@ void Voo::listarPassageiros() {
     }
 }
 
-void Voo::adicionarPassageiro(const Passageiro &p){
+void Voo::adicionarPassageiro( Passageiro &p){
     passageiros.push_back(p);
+    p.add_voo(codigo);
 }
 
 int Voo::qtdPassageiros(){

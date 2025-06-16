@@ -11,7 +11,7 @@
 #include <limits>
 
 using namespace std;
-// comando para compilar: g++ -Iinclude main.cpp salvar.cpp src/*.cpp -o sistemaDeVoos
+// comando para compilar: g++ -Iinclude main.cpp arquivos.cpp src/*.cpp -o exe
 
 int exibirMenu()
 {
@@ -300,7 +300,7 @@ int main()
             // Gerar relatórios e estatísticas
             cout << "Numero total de voos cadastrados: " << (int)voos.size() << endl;
             cout << "Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl;
-
+            
         }
         else if (opcao == 9)
         {

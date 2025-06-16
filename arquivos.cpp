@@ -13,7 +13,7 @@ using namespace std;
 
 void salvarDados(const vector<Aeronave> &aeronaves,
                  const vector<Piloto> &pilotos,
-                 const vector<Passageiro> &passageiros,
+                  vector<Passageiro> &passageiros,
                  const vector<Voo> &voos)
 {
     // Salvar Aeronaves
@@ -49,11 +49,20 @@ void salvarDados(const vector<Aeronave> &aeronaves,
     ofstream fpa("./files/passageiros.csv");
     if (fpa.is_open())
     {
-        for (const auto &p : passageiros)
+        for (auto &p : passageiros)
         {
             fpa << p.getNome() << ","
                 << p.getCpf() << ","
-                << p.getNumeroBilhete() << endl;
+                << p.getNumeroBilhete() << ","
+                << p.qtd_voos() << ":";
+
+                for(int i = 0; i< p.qtd_voos(); i++)
+                {
+                    fpa << p.getCodVoo(i);
+                    if(i != p.qtd_voos() - 1)
+                        fpa << "|";
+                }
+            fpa << endl;
         }
         fpa.close();
     }
@@ -151,13 +160,36 @@ void carregarDados(vector<Aeronave> &aeronaves,
         string linha;
         while (getline(fpa, linha)) {
             stringstream ss(linha);
-            string nome, cpf, numeroBilhete;
+            string nome, cpf, numeroBilhete, voosStr, qtdVoosStr;
 
             getline(ss, nome, ',');
             getline(ss, cpf, ',');
-            getline(ss, numeroBilhete);
+            getline(ss, numeroBilhete, ',');
+            getline(ss, qtdVoosStr, ':');
 
             Passageiro pa(nome, cpf, numeroBilhete);
+
+            
+            // Lê a string com todos os códigos de voo
+            getline(ss, voosStr);
+            int qtdVoos = stoi(qtdVoosStr);
+            
+            if (qtdVoos > 0) 
+            {
+                stringstream voosStream(voosStr);
+                string codigoVooStr;
+                
+                // Lê cada código de voo separado por |
+                for (int i = 0; i < qtdVoos; i++) {
+                    if (i > 0) {
+                        getline(voosStream, codigoVooStr, '|');  
+                    }
+                    getline(voosStream, codigoVooStr, '|');
+                    int codigoVoo = stoi(codigoVooStr);
+                    pa.add_voo(codigoVoo);  
+                }
+            }
+            
             passageiros.push_back(pa);
         }
         fpa.close();

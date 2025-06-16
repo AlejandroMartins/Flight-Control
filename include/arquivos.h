@@ -10,7 +10,7 @@
 
 void salvarDados(const std::vector<Aeronave> &aeronaves,
                  const std::vector<Piloto> &pilotos,
-                 const std::vector<Passageiro> &passageiros,
+                  std::vector<Passageiro> &passageiros,
                  const std::vector<Voo> &voos);
 
 void carregarDados(std::vector<Aeronave> &aeronaves,
