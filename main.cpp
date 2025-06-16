@@ -64,6 +64,14 @@ int main()
             cin >> codigo;
             limparBuffer();
 
+            // verificando se ja nao existe nenhuma aeronave com esse codigo
+            while(encontrarIndiceAeronavePorCodigo(aeronaves, codigo) != -1)
+            {
+                cout << "Codigo de aeronave ja existente, digite outro: ";
+                cin >> codigo;
+                limparBuffer();
+            }
+
             cout << "Digite a capacidade da aeronave: ";
             cin >> capacidade;
             limparBuffer();
@@ -94,6 +102,13 @@ int main()
             cout << "Digite a matricula do piloto: ";
             getline(cin, matricula);
 
+            while (encontrarIndicePilotoPorMatricula(pilotos, matricula) != -1)
+            {
+                cout << "Matricula ja existente, digite outra: ";
+                getline(cin, matricula);
+            }
+            
+
             cout << "Digite o breve do piloto: ";
             getline(cin, breve);
 
@@ -115,6 +130,13 @@ int main()
             cout << "Digite o CPF do passageiro: ";
             getline(cin, cpf);
 
+            while (encontrarIndicePassageiroPorCpf(passageiros, cpf) != -1)
+            {
+                cout << "Cpf ja existente, digite outro: ";
+                getline(cin, cpf);
+            }
+            
+
             cout << "Digite o numero do bilhete do passageiro: ";
             getline(cin, numeroBilhete);
 
@@ -131,6 +153,14 @@ int main()
             cout << "Digite o codigo do voo: ";
             cin >> codigoVoo;
             limparBuffer();
+
+            while (encontrarIndiceVooPorCodigo(voos, codigoVoo) != -1)
+            {
+                cout << "Codigo ja existente, digite outro: ";
+                cin >> codigoVoo;
+                limparBuffer();
+            }
+            
 
             cout << "Digite a origem do voo: ";
             getline(cin, origem);
