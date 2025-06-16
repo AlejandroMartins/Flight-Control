@@ -63,6 +63,8 @@ public:
 
     // funçao para saber a quantidade de passageiros em um voo
     int qtdPassageiros();
+
+    bool passageiro_listado(string cpf);
 };
 
 #endif // VOO_H

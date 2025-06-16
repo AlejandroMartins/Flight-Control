@@ -1,4 +1,5 @@
 #include "../include/Voo.h"
+#include "../include/pesquisa.h"
 #include <iostream>
 using namespace std;
 
@@ -74,4 +75,8 @@ void Voo::adicionarPassageiro( Passageiro &p){
 
 int Voo::qtdPassageiros(){
     return passageiros.size();
+}
+
+bool Voo::passageiro_listado (string cpf){
+    return (encontrarIndicePassageiroPorCpf(passageiros, cpf) != -1);
 }

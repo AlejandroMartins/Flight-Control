@@ -253,12 +253,14 @@ int main()
 
             // Garantindo que será passado um passageiro válido
             int iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
-            while (iPassageiro == -1)
+            while ((iPassageiro == -1) || voos[iVoo].passageiro_listado(cpf))
             {
-                cout << "Esse passageiro nao existe, digite novamente:" << endl;
+                cout << "Esse passageiro nao existe, ou ja esta nesse voo, digite novamente:" << endl;
                 getline(cin, cpf);
                 iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
             }
+
+            
 
             voos[iVoo].adicionarPassageiro(passageiros[iPassageiro]);
             cout << "Passageiro adicionado com sucesso!" << endl;
