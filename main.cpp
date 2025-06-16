@@ -267,16 +267,16 @@ int main()
         {
             for (int i = 0; i < voos.size(); i++)
             {
-                cout << voos[i].getCodigo() << ","
-                     << voos[i].getOrigem() << ","
-                     << voos[i].getDestino() << ","
-                     << voos[i].getDistancia() << ","
-                     << voos[i].getHoraDeSaida() << ","
-                     << voos[i].getPassageiros().size() << ","
-                     << voos[i].getAeronave().getCodigo() << ","
-                     << voos[i].getComandante().getMatricula() << ","
-                     << voos[i].getPrimeiroOficial().getMatricula()
-                     << "\n";
+                cout << "Codigo do voo " << i+1 << ": "<< voos[i].getCodigo() << "\n"
+                     << "Origem: " << voos[i].getOrigem() << "\n"
+                     << "Destino: " <<voos[i].getDestino() << "\n"
+                     << "Distancia: " << voos[i].getDistancia() << "\n"
+                     << "Hora de saida: " <<voos[i].getHoraDeSaida() << "\n"
+                     << "Quantidade de passageiros: " << voos[i].getPassageiros().size() << "\n"
+                     << "Codigo da aeronave: " <<voos[i].getAeronave().getCodigo() << "\n"
+                     << "Matricula do comandante: " << voos[i].getComandante().getMatricula() << "\n"
+                     <<  "Matricula do primeiro oficial: " << voos[i].getPrimeiroOficial().getMatricula()
+                     << "\n\n";
             }
         }
         else if (opcao == 7)
