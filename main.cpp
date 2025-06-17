@@ -190,6 +190,8 @@ int main()
                 iAeronave = encontrarIndiceAeronavePorCodigo(aeronaves, codigoAeronave);
             }
 
+            aeronaves[iAeronave].add_voo(codigoVoo);
+
             // Aqui assumimos que você cadastrou pilotos antes e quer pedir matricula como string
             string matriculaComandante, matriculaPrimeiroOficial;
 
@@ -312,7 +314,8 @@ int main()
             passageiroMaisVoo(passageiros);
             cout << "- Voos que atingiram pelo menos 90%" << " da capacidade maxima:" << endl;
             voo_quase_cheio(voos);
-            
+            cout << "- As duas aeronaves que mais participaram de voos:" << endl;
+            aeronaves_mais_usadas(aeronaves);
 
         }
         else if (opcao == 9)

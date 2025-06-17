@@ -19,4 +19,7 @@ void passageiroMaisVoo(vector<Passageiro> &passageiros);
 
 // funçao para listar os voos com mais de 90% da capacidade maxima
 void voo_quase_cheio(vector<Voo> &voos);
+
+//funçao para listar as duas aeronaves mais usdas
+void aeronaves_mais_usadas(vector<Aeronave> &aeronaves);
 #endif

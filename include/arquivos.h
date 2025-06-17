@@ -8,7 +8,7 @@
 #include "Voo.h"
 #include "pesquisa.h"
 
-void salvarDados(const std::vector<Aeronave> &aeronaves,
+void salvarDados( std::vector<Aeronave> &aeronaves,
                  const std::vector<Piloto> &pilotos,
                   std::vector<Passageiro> &passageiros,
                  const std::vector<Voo> &voos);

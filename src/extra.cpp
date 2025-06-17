@@ -37,3 +37,21 @@ void voo_quase_cheio(vector<Voo> &voos){
     if(!teste)
         cout<< "    nenhum" << endl;
 }
+
+void aeronaves_mais_usadas(vector<Aeronave> &aeronaves){
+    int maior = 0;
+    int maior2 = 0;
+    for(int i = 0; i < aeronaves.size(); i++)
+    {
+        if(aeronaves[i].qtd_voo() > aeronaves[maior].qtd_voo())
+            maior = i;
+    }
+
+    for(int j = 0; j < aeronaves.size(); j++)
+    {
+        if( (j != maior) && aeronaves[j].qtd_voo() > aeronaves[maior2].qtd_voo())
+            maior2 = j;
+    }
+    cout << "   "<< aeronaves[maior].getModelo() << endl;
+    cout << "   "<< aeronaves[maior2].getModelo() << endl;
+}

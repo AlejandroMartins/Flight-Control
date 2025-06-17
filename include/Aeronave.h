@@ -2,6 +2,7 @@
 #define AERONAVE_H
 
 #include <string>
+#include <vector>
 using namespace std;
 
 class Aeronave {
@@ -11,6 +12,7 @@ private:
     string modelo;
     double velocidadeMedia;
     double autonomiaDeVoo;
+    vector<int> voos_aeronave;
 
 public:
     // Construtor
@@ -23,6 +25,7 @@ public:
     string getModelo() const;
     double getVelocidadeMedia() const;
     double getAutonomiaDeVoo() const;
+    int getCodVoo(int i);
 
     // Setters
     void setCodigo(int novoCodigo);
@@ -30,6 +33,12 @@ public:
     void setModelo(string novoModelo);
     void setVelocidadeMedia(double novaVelocidade);
     void setAutonomiaDeVoo(double novaAutonomia);
+
+    // retorna a quantidade de voo que a aeronave participa
+    int qtd_voo();
+
+    //adiciona voo no vetor de voos
+    void add_voo(int i);
 
 };
 

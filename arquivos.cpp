@@ -11,7 +11,7 @@ using namespace std;
 
 
 
-void salvarDados(const vector<Aeronave> &aeronaves,
+void salvarDados( vector<Aeronave> &aeronaves,
                  const vector<Piloto> &pilotos,
                   vector<Passageiro> &passageiros,
                  const vector<Voo> &voos)
@@ -20,13 +20,23 @@ void salvarDados(const vector<Aeronave> &aeronaves,
     ofstream fa("./files/aeronaves.csv");
     if (fa.is_open())
     {
-        for (const auto &a : aeronaves)
+        for (auto &a : aeronaves)
         {
             fa << a.getCodigo() << ","
                << a.getCapacidade() << ","
                << a.getModelo() << ","
                << a.getVelocidadeMedia() << ","
-               << a.getAutonomiaDeVoo() << endl;
+               << a.getAutonomiaDeVoo() << ","
+               << a.qtd_voo() << ":";
+
+               for(int i = 0; i < a.qtd_voo(); i++)
+               {
+                    fa << a.getCodVoo(i);
+                    if(i != a.qtd_voo() - 1)
+                        fa << "|";
+               }
+
+            fa << endl;
         }
         fa.close();
     }
@@ -110,32 +120,49 @@ void carregarDados(vector<Aeronave> &aeronaves,
     passageiros.clear();
     voos.clear();
 
-    // Carregar Aeronaves
     ifstream fa("./files/aeronaves.csv");
-    if (fa.is_open()) {
-        string linha;
-        while (getline(fa, linha)) {
-            stringstream ss(linha);
-            string codigo_str, capacidade_str, modelo, velocidade_str, autonomia_str;
+if (fa.is_open()) {
+    string linha;
+    while (getline(fa, linha)) {
+        stringstream ss(linha);
+        string codigo_str, capacidade_str, modelo, velocidade_str, autonomia_str, qtd_voos_str, voos_str;
 
-            // Lê cada campo separado por vírgula
-            getline(ss, codigo_str, ',');
-            getline(ss, capacidade_str, ',');
-            getline(ss, modelo, ',');
-            getline(ss, velocidade_str, ',');
-            getline(ss, autonomia_str, ',');
+        // Lê dados básicos
+        getline(ss, codigo_str, ',');
+        getline(ss, capacidade_str, ',');
+        getline(ss, modelo, ',');
+        getline(ss, velocidade_str, ',');
+        getline(ss, autonomia_str, ',');
+        getline(ss, qtd_voos_str, ':');
 
-            // Converte strings para números
-            int codigo = stoi(codigo_str);
-            int capacidade = stoi(capacidade_str);
-            double velocidadeMedia = stod(velocidade_str);
-            double autonomiaDeVoo = stod(autonomia_str);
+        // Converte dados básicos
+        int codigo = stoi(codigo_str);
+        int capacidade = stoi(capacidade_str);
+        double velocidade = stod(velocidade_str);
+        double autonomia = stod(autonomia_str);
+        int qtd_voos = stoi(qtd_voos_str);
 
-            Aeronave a(codigo, capacidade, modelo, velocidadeMedia, autonomiaDeVoo);
-            aeronaves.push_back(a);
+        // Cria aeronave
+        Aeronave a(codigo, capacidade, modelo, velocidade, autonomia);
+
+        // Lê voos se houver
+        if (qtd_voos > 0) {
+            getline(ss, voos_str);
+            stringstream voos_ss(voos_str);
+            string codigo_voo_str;
+            
+            for (int i = 0; i < qtd_voos; i++) {
+                if (i > 0) getline(voos_ss, codigo_voo_str, '|');
+                getline(voos_ss, codigo_voo_str, '|');
+                int codigo_voo = stoi(codigo_voo_str);
+                a.add_voo(codigo_voo);
+            }
         }
-        fa.close();
+
+        aeronaves.push_back(a);
     }
+    fa.close();
+}
 
     // Carregar Pilotos
     ifstream fp("./files/pilotos.csv");
