@@ -312,6 +312,7 @@ int main()
             passageiroMaisVoo(passageiros);
             cout << "- Voos que atingiram pelo menos 90%" << " da capacidade maxima:" << endl;
             voo_quase_cheio(voos);
+            
 
         }
         else if (opcao == 9)

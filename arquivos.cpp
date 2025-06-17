@@ -116,17 +116,20 @@ void carregarDados(vector<Aeronave> &aeronaves,
         string linha;
         while (getline(fa, linha)) {
             stringstream ss(linha);
-            string modelo;
-            int capacidade, codigo;
-            double velocidadeMedia, autonomiaDeVoo;
+            string codigo_str, capacidade_str, modelo, velocidade_str, autonomia_str;
 
-            ss >> codigo;
-            ss >> capacidade;
-            ss.ignore();
+            // Lê cada campo separado por vírgula
+            getline(ss, codigo_str, ',');
+            getline(ss, capacidade_str, ',');
             getline(ss, modelo, ',');
-            ss >> velocidadeMedia;
-            ss.ignore();
-            ss >> autonomiaDeVoo;
+            getline(ss, velocidade_str, ',');
+            getline(ss, autonomia_str, ',');
+
+            // Converte strings para números
+            int codigo = stoi(codigo_str);
+            int capacidade = stoi(capacidade_str);
+            double velocidadeMedia = stod(velocidade_str);
+            double autonomiaDeVoo = stod(autonomia_str);
 
             Aeronave a(codigo, capacidade, modelo, velocidadeMedia, autonomiaDeVoo);
             aeronaves.push_back(a);
