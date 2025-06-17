@@ -308,14 +308,17 @@ int main()
         else if (opcao == 8)
         {
             // Gerar relatórios e estatísticas
-            cout << "- Numero total de voos cadastrados: " << (int)voos.size() << endl;
-            cout << "- Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl;
+            cout << "- Numero total de voos cadastrados: " << (int)voos.size() << endl << endl;
+            cout << "- Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl << endl;
             cout << "- Passageiros que participam de mais de um voo:"<< endl;
             passageiroMaisVoo(passageiros);
-            cout << "- Voos que atingiram pelo menos 90%" << " da capacidade maxima:" << endl;
+            cout << endl << "- Voos que atingiram pelo menos 90%" << " da capacidade maxima:" << endl;
             voo_quase_cheio(voos);
-            cout << "- As duas aeronaves que mais participaram de voos:" << endl;
+            cout << endl <<"- As duas aeronaves que mais participaram de voos:" << endl;
             aeronaves_mais_usadas(aeronaves);
+            cout << endl <<"Distancia total percorrida por cada aeronave:" << endl;
+            dist_total_aeronave(aeronaves, voos);
+            cout << endl;
 
         }
         else if (opcao == 9)

@@ -6,6 +6,7 @@
 #include "Piloto.h"
 #include "Passageiro.h"
 #include "Voo.h"
+#include "pesquisa.h"
 #include <vector>
 #include <iostream>
 #include <limits>
@@ -22,4 +23,8 @@ void voo_quase_cheio(vector<Voo> &voos);
 
 //funçao para listar as duas aeronaves mais usdas
 void aeronaves_mais_usadas(vector<Aeronave> &aeronaves);
+
+// funcao que falara a distancia total percorrida por cada aeronave
+void dist_total_aeronave(vector<Aeronave> &aeronaves, vector<Voo> &voos);
+
 #endif

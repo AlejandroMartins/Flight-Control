@@ -55,3 +55,17 @@ void aeronaves_mais_usadas(vector<Aeronave> &aeronaves){
     cout << "   "<< aeronaves[maior].getModelo() << endl;
     cout << "   "<< aeronaves[maior2].getModelo() << endl;
 }
+
+void dist_total_aeronave(vector<Aeronave> &aeronaves, vector<Voo> &voos){
+    for(int i = 0; i < aeronaves.size(); i++)
+    {
+        int total = 0;
+        for(int j = 0; j < aeronaves[i].qtd_voo(); j++)
+        {
+            int voo_cod = aeronaves[i].getCodVoo(j);
+            int voo_posic = encontrarIndiceVooPorCodigo(voos, voo_cod);
+            total += voos[voo_posic].getDistancia();
+        }
+        cout << "   "<< aeronaves[i].getModelo() << " = " << total << " km rodados" << endl;
+    }
+}
