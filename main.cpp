@@ -34,6 +34,7 @@ int exibirMenu()
     return opcao;
 }
 
+// limpa o buffer
 void limparBuffer()
 {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
@@ -42,11 +43,14 @@ void limparBuffer()
 
 int main()
 {
+
+    // vetores que serao usados para armazenar os dados
     vector<Aeronave> aeronaves;
     vector<Piloto> pilotos;
     vector<Passageiro> passageiros;
     vector<Voo> voos;
 
+    //pegando os dados salvos nos arquivos e colocando dentro dos vetores
     carregarDados(aeronaves, pilotos, passageiros, voos);
 
     
@@ -55,7 +59,7 @@ int main()
         int opcao = exibirMenu();
         limparBuffer();
 
-        if (opcao == 1)
+        if (opcao == 1) //cadastrar aeronave
         {
             int codigo, capacidade;
             string modelo;
@@ -92,7 +96,7 @@ int main()
 
             cout << "Aeronave cadastrada com sucesso!" << endl;
         }
-        else if (opcao == 2)
+        else if (opcao == 2) // cadastrar piloto
         {
             string nome, matricula, breve;
             double horasDeVoo;
@@ -103,6 +107,7 @@ int main()
             cout << "Digite a matricula do piloto: ";
             getline(cin, matricula);
 
+            // verificando se ja nao existe nenhum piloto com essa matricula
             while (encontrarIndicePilotoPorMatricula(pilotos, matricula) != -1)
             {
                 cout << "Matricula ja existente, digite outra: ";
@@ -121,7 +126,7 @@ int main()
 
             cout << "Piloto cadastrado com sucesso!" << endl;
         }
-        else if (opcao == 3)
+        else if (opcao == 3) // cadastrar passageiro
         {
             string nome, cpf, numeroBilhete;
 
@@ -131,6 +136,7 @@ int main()
             cout << "Digite o CPF do passageiro: ";
             getline(cin, cpf);
 
+            //verificando se ja nao existe nenhum passageiro com esse cpf
             while (encontrarIndicePassageiroPorCpf(passageiros, cpf) != -1)
             {
                 cout << "Cpf ja existente, digite outro: ";
@@ -145,7 +151,7 @@ int main()
 
             cout << "Passageiro cadastrado com sucesso!" << endl;
         }
-        else if (opcao == 4)
+        else if (opcao == 4) // criar voo
         {
             int codigoVoo, codigoAeronave;
             string origem, destino, horaDeSaida;
@@ -155,6 +161,7 @@ int main()
             cin >> codigoVoo;
             limparBuffer();
 
+            // verificando se ja nao existe nenhum voo com esse codigo
             while (encontrarIndiceVooPorCodigo(voos, codigoVoo) != -1)
             {
                 cout << "Codigo ja existente, digite outro: ";
@@ -192,7 +199,6 @@ int main()
 
             aeronaves[iAeronave].add_voo(codigoVoo);
 
-            // Aqui assumimos que você cadastrou pilotos antes e quer pedir matricula como string
             string matriculaComandante, matriculaPrimeiroOficial;
 
             cout << "Digite a matricula do Comandante: ";
@@ -231,7 +237,7 @@ int main()
 
             cout << "Voo criado com sucesso!" << endl;
         }
-        else if (opcao == 5)
+        else if (opcao == 5) // embarcar passageiros em voo
         {
             int codigoVoo;
             string cpf;
@@ -250,7 +256,8 @@ int main()
                 iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
             }
 
-            if(voos[iVoo].qtdPassageiros() == voos[iVoo].getAeronave().getCapacidade())
+            // verificando se ainda ha vaga para mais passageiros nessa aeronave
+            if(voos[iVoo].qtdPassageiros() >= voos[iVoo].getAeronave().getCapacidade())
             {
                 cout << "A aeronave desse voo ja esta cheia!!!" << endl;
                 continue;
@@ -259,7 +266,7 @@ int main()
             cout << "Digite o CPF do passageiro: ";
             getline(cin, cpf);
 
-            // Garantindo que será passado um passageiro válido
+            // Garantindo que será passado um passageiro válido, e que tambem nao sera inserido o mesmo passageiro mais de uma vez
             int iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
             while ((iPassageiro == -1) || voos[iVoo].passageiro_listado(cpf))
             {
@@ -273,7 +280,7 @@ int main()
             voos[iVoo].adicionarPassageiro(passageiros[iPassageiro]);
             cout << "Passageiro adicionado com sucesso!" << endl;
         }
-        else if (opcao == 6)
+        else if (opcao == 6) // listar voos
         {
             for (int i = 0; i < voos.size(); i++)
             {
@@ -290,7 +297,7 @@ int main()
                      << "\n\n";
             }
         }
-        else if (opcao == 7)
+        else if (opcao == 7) // listar passgeiros de um voo
         {
             int codigoVoo;
             cout << "Digite o codigo do voo: ";
@@ -305,25 +312,26 @@ int main()
                 iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
             }
             
+            // chamando a funçao que lista todos os passageiros do voo
             voos[iVoo].listarPassageiros();
         }
-        else if (opcao == 8)
+        else if (opcao == 8) // Gerar relatórios e estatísticas
         {
-            // Gerar relatórios e estatísticas
+            
             cout << "- Numero total de voos cadastrados: " << (int)voos.size() << endl << endl;
-            cout << "- Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl << endl;
+            printf ("- Media de passageiros por voo: %.1f\n\n", media_passageiro_por_voo(voos));
             cout << "- Passageiros que participam de mais de um voo:"<< endl;
-            passageiroMaisVoo(passageiros);
+            passageiroMaisVoo(passageiros); // funçao que imprime os passageiros que participam de mais de um voo
             cout << endl << "- Voos que atingiram pelo menos 90%" << " da capacidade maxima:" << endl;
-            voo_quase_cheio(voos);
+            voo_quase_cheio(voos); // funçao que imprime os voos com mais de 90% da capacidade usada
             cout << endl <<"- As duas aeronaves que mais participaram de voos:" << endl;
-            aeronaves_mais_usadas(aeronaves);
+            aeronaves_mais_usadas(aeronaves); // funçao que imprime as duas aeronaves mais usada
             cout << endl <<"Distancia total percorrida por cada aeronave:" << endl;
-            dist_total_aeronave(aeronaves, voos);
+            dist_total_aeronave(aeronaves, voos); // funçao que imprime a distancia total percorrida por cada aeronave
             cout << endl;
 
         }
-        else if (opcao == 9)
+        else if (opcao == 9) // salvar dados e sair
         {
             cout << "Salvando dados e saindo..." << endl;
             salvarDados(aeronaves, pilotos, passageiros, voos);

@@ -29,6 +29,8 @@ public:
     Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida,
          int numeroDeEscalas, double tempoEstimado,
          const Aeronave& aeronave, const Piloto& comandante, const Piloto& primeiroOficial);
+
+    // esse segundo construtor sera usado para leitura dos arquivos
     Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida, int numeroDeEscalas, double tempoEstimado);
 
     // Getters
@@ -57,13 +59,16 @@ public:
     void setComandante(const Piloto &p);
     void setPrimeiroOficial(const Piloto &p);
     
-    // Outros métodos para gerenciar passageiros podem ser adicionados aqui
+    // ira listar todos os passageiros do voo
     void listarPassageiros();
+
+    //adciona passageiros no vector
     void adicionarPassageiro( Passageiro &p);
 
     // funçao para saber a quantidade de passageiros em um voo
     int qtdPassageiros();
 
+    // para saber se o passageiro portador desse cpf esta no voo
     bool passageiro_listado(string cpf);
 };
 

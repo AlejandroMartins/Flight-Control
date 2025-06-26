@@ -1,6 +1,8 @@
 #include "extra.h"
 using namespace std;
 
+
+// funcao que retorna a media de passageiros por voo
 double media_passageiro_por_voo(vector<Voo> &voos){
     int total = 0;
     for (int i = 0; i < (int)voos.size(); i++)
@@ -13,6 +15,7 @@ double media_passageiro_por_voo(vector<Voo> &voos){
     return (total / totVoos);
 }
 
+// funçao que imprime todos os passageiros que participam de mais de um voo
 void passageiroMaisVoo(vector<Passageiro> &passageiros){
     for(int i = 0; i < passageiros.size(); i++)
     {
@@ -23,6 +26,7 @@ void passageiroMaisVoo(vector<Passageiro> &passageiros){
     }
 }
 
+// funçao que imprime todos os voos que tem mais que 90% da capacidade usada
 void voo_quase_cheio(vector<Voo> &voos){
     bool teste;
     teste = false;
@@ -38,6 +42,8 @@ void voo_quase_cheio(vector<Voo> &voos){
         cout<< "    nenhum" << endl;
 }
 
+
+// imprime as duas aeronaves que paritcipam de mais voos
 void aeronaves_mais_usadas(vector<Aeronave> &aeronaves){
     int maior = 0;
     int maior2 = 0;
@@ -56,6 +62,8 @@ void aeronaves_mais_usadas(vector<Aeronave> &aeronaves){
     cout << "   "<< aeronaves[maior2].getModelo() << endl;
 }
 
+
+//imprime a distancia total percorrida por cada aeronave
 void dist_total_aeronave(vector<Aeronave> &aeronaves, vector<Voo> &voos){
     for(int i = 0; i < aeronaves.size(); i++)
     {

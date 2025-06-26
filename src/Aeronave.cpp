@@ -63,10 +63,12 @@ void Aeronave::setAutonomiaDeVoo(double novaAutonomia) {
     autonomiaDeVoo = novaAutonomia;
 }
 
+// retorna a quantidade de voos que a aeronava participa
 int Aeronave::qtd_voo(){
     return voos_aeronave.size();
 }
 
+// adciona um voo para o vector
 void Aeronave::add_voo(int i){
     voos_aeronave.push_back(i);
 }

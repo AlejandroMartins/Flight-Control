@@ -10,7 +10,7 @@ class Passageiro : public Pessoa {
 private:
     string cpf;
     string numeroBilhete;
-    vector<int> voos_que_participa;
+    vector<int> voos_que_participa; // vetor que contem o codigo dos voos que o passageiro participa
 
 public:
     // Construtor
@@ -28,6 +28,7 @@ public:
     // funçao que adciona um voo para o passageiro
     void add_voo(int cod);
 
+    // funçao que retorna a quantidade de voos que o passageiro esta cadastrado
     int qtd_voos();
 
 };

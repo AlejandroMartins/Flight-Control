@@ -21,6 +21,7 @@ Voo::Voo(int codigo, string origem, string destino, double distancia, string hor
     this->primeiroOficial = primeiroOficial;
 }
 
+// esse segundo construtor sera usado na leitura dos arquivos, por isso existem dois construtores
 Voo::Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida, int numeroDeEscalas, double tempoEstimado){
     this->codigo = codigo;
     this->origem = origem;
@@ -56,6 +57,8 @@ void Voo::setAeronave(const Aeronave &a) { aeronave = a; }
 void Voo::setComandante(const Piloto &p) { comandante = p; }
 void Voo::setPrimeiroOficial(const Piloto &p) { primeiroOficial = p; }
 
+
+// imprime todos os passageiros do voo
 void Voo::listarPassageiros() {
     cout << "Aeronave: " << getAeronave().getModelo() << endl;
     cout << "Codigo da aeronave: " << getAeronave().getCodigo() << endl;
@@ -66,19 +69,22 @@ void Voo::listarPassageiros() {
     }
 
     for (const auto& p : passageiros) {
-        cout << "- " << p.getNome() << "\n";  // assumindo Passageiro tem método getNome()
+        cout << "- " << p.getNome() << "\n";  
     }
 }
 
+//adciona um passageiro no vector
 void Voo::adicionarPassageiro( Passageiro &p){
     passageiros.push_back(p);
     p.add_voo(codigo);
 }
 
+// retorna a quantidade de passageiros cadastrados no voo
 int Voo::qtdPassageiros(){
     return passageiros.size();
 }
 
+// para saber se o passageiro portador desse cpf esta no voo
 bool Voo::passageiro_listado (string cpf){
     return (encontrarIndicePassageiroPorCpf(passageiros, cpf) != -1);
 }
