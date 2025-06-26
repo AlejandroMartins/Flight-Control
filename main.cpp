@@ -1,15 +1,17 @@
 #include <string>
-#include "./include/Aeronave.h"
+#include "./include/Aeronave.h" 
 #include "./include/Piloto.h"
 #include "./include/Passageiro.h"
 #include "./include/Voo.h"
 #include "./include/arquivos.h"
+#include "./include/pesquisa.h"
+#include "./include/extra.h"
 #include <vector>
 #include <iostream>
 #include <limits>
 
 using namespace std;
-// comando para compilar: g++ -Iinclude main.cpp salvar.cpp src/*.cpp -o sistemaDeVoos
+// comando para compilar: g++ -Iinclude main.cpp arquivos.cpp src/*.cpp -o exe
 
 int exibirMenu()
 {
@@ -23,11 +25,11 @@ int exibirMenu()
     cout << "5. Embarcar passageiro em voo\n";
     cout << "6. Listar voos\n";
     cout << "7. Listar passageiros de um voo\n";
-    cout << "8. Gerar relatórios e estatísticas\n";
+    cout << "8. Gerar relatorios e estatisticas\n";
     cout << "9. Salvar dados e sair\n";
 
     cout << "\n=========================================\n";
-    cout << "Escolha uma opção: ";
+    cout << "Escolha uma opcao: ";
     cin >> opcao;
     return opcao;
 }
@@ -37,53 +39,6 @@ void limparBuffer()
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
-int encontrarIndiceAeronavePorCodigo(const vector<Aeronave> &aeronaves, int codigo)
-{
-    for (int i = 0; i < (int)aeronaves.size(); i++)
-    {
-        if (aeronaves[i].getCodigo() == codigo)
-        {
-            return i;
-        }
-    }
-    return -1; // Não encontrado
-}
-
-int encontrarIndicePilotoPorMatricula(const vector<Piloto> &pilotos, string matricula)
-{
-    for (int i = 0; i < pilotos.size(); i++)
-    {
-        if (pilotos[i].getMatricula() == matricula)
-        {
-            return i;
-        }
-    }
-    return -1; // Não encontrado
-}
-
-int encontrarIndicePassageiroPorCpf(const vector<Passageiro> &passageiros, const string &cpf)
-{
-    for (int i = 0; i < (int)passageiros.size(); i++)
-    {
-        if (passageiros[i].getCpf() == cpf)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
-
-int encontrarIndiceVooPorCodigo(const vector<Voo> &voos, int codigo)
-{
-    for (int i = 0; i < (int)voos.size(); i++)
-    {
-        if (voos[i].getCodigo() == codigo)
-        {
-            return i;
-        }
-    }
-    return -1;
-}
 
 int main()
 {
@@ -92,18 +47,9 @@ int main()
     vector<Passageiro> passageiros;
     vector<Voo> voos;
 
-    // Criando um objeto de cada classe para iniciar o sistema com dados
-    aeronaves.push_back(Aeronave(1, 180, "Boeing 737", 850.0, 5000.0));
-    pilotos.push_back(Piloto("Carlos Silva", "MAT123", "Breve123", 1500.0));
-    passageiros.push_back(Passageiro("Ana Souza", "123.456.789-00", "BIL123"));
+    carregarDados(aeronaves, pilotos, passageiros, voos);
 
-    // Criar um voo usando os objetos acima
-    Voo vooInicial(1001, "São Paulo", "Rio de Janeiro", 430.0, "08:00",
-                   0, 1.0,
-                   aeronaves[0], pilotos[0], pilotos[0]); // só para exemplo, mesmo piloto como comandante e 1º oficial
-
-    voos.push_back(vooInicial);
-
+    
     do
     {
         int opcao = exibirMenu();
@@ -115,9 +61,17 @@ int main()
             string modelo;
             double velocidadeMedia, autonomiaDeVoo;
 
-            cout << "Digite o código da aeronave: ";
+            cout << "Digite o codigo da aeronave: ";
             cin >> codigo;
             limparBuffer();
+
+            // verificando se ja nao existe nenhuma aeronave com esse codigo
+            while(encontrarIndiceAeronavePorCodigo(aeronaves, codigo) != -1)
+            {
+                cout << "Codigo de aeronave ja existente, digite outro: ";
+                cin >> codigo;
+                limparBuffer();
+            }
 
             cout << "Digite a capacidade da aeronave: ";
             cin >> capacidade;
@@ -126,7 +80,7 @@ int main()
             cout << "Digite o modelo da aeronave: ";
             getline(cin, modelo);
 
-            cout << "Digite a velocidade média da aeronave: ";
+            cout << "Digite a velocidade media da aeronave: ";
             cin >> velocidadeMedia;
             limparBuffer();
 
@@ -146,8 +100,15 @@ int main()
             cout << "Digite o nome do piloto: ";
             getline(cin, nome);
 
-            cout << "Digite a matrícula do piloto: ";
+            cout << "Digite a matricula do piloto: ";
             getline(cin, matricula);
+
+            while (encontrarIndicePilotoPorMatricula(pilotos, matricula) != -1)
+            {
+                cout << "Matricula ja existente, digite outra: ";
+                getline(cin, matricula);
+            }
+            
 
             cout << "Digite o breve do piloto: ";
             getline(cin, breve);
@@ -170,7 +131,14 @@ int main()
             cout << "Digite o CPF do passageiro: ";
             getline(cin, cpf);
 
-            cout << "Digite o número do bilhete do passageiro: ";
+            while (encontrarIndicePassageiroPorCpf(passageiros, cpf) != -1)
+            {
+                cout << "Cpf ja existente, digite outro: ";
+                getline(cin, cpf);
+            }
+            
+
+            cout << "Digite o numero do bilhete do passageiro: ";
             getline(cin, numeroBilhete);
 
             passageiros.push_back(Passageiro(nome, cpf, numeroBilhete));
@@ -183,9 +151,17 @@ int main()
             string origem, destino, horaDeSaida;
             float distancia;
 
-            cout << "Digite o código do voo: ";
+            cout << "Digite o codigo do voo: ";
             cin >> codigoVoo;
             limparBuffer();
+
+            while (encontrarIndiceVooPorCodigo(voos, codigoVoo) != -1)
+            {
+                cout << "Codigo ja existente, digite outro: ";
+                cin >> codigoVoo;
+                limparBuffer();
+            }
+            
 
             cout << "Digite a origem do voo: ";
             getline(cin, origem);
@@ -193,36 +169,57 @@ int main()
             cout << "Digite o destino do voo: ";
             getline(cin, destino);
 
-            cout << "Digite a distância da viagem: ";
+            cout << "Digite a distancia da viagem: ";
             cin >> distancia;
             limparBuffer();
 
-            cout << "Digite a hora de saída da viagem: ";
+            cout << "Digite a hora de saida da viagem: ";
             getline(cin, horaDeSaida);
 
-            cout << "Digite o código da aeronave: ";
+            cout << "Digite o codigo da aeronave: ";
             cin >> codigoAeronave;
             limparBuffer();
 
+            // Verificando que sera passado um codigo de aeronave valido
             int iAeronave = encontrarIndiceAeronavePorCodigo(aeronaves, codigoAeronave);
-            if (iAeronave == -1)
+            while (iAeronave == -1)
             {
-                cout << "Essa aeronave não existe" << endl;
-                continue;
+                cout << "Essa aeronave nao existe, digite outro codigo:" << endl;
+                cin >> codigoAeronave;
+                limparBuffer();
+                iAeronave = encontrarIndiceAeronavePorCodigo(aeronaves, codigoAeronave);
             }
 
-            // Aqui assumimos que você cadastrou pilotos antes e quer pedir matrícula como string
+            aeronaves[iAeronave].add_voo(codigoVoo);
+
+            // Aqui assumimos que você cadastrou pilotos antes e quer pedir matricula como string
             string matriculaComandante, matriculaPrimeiroOficial;
 
-            cout << "Digite a matrícula do Comandante: ";
+            cout << "Digite a matricula do Comandante: ";
             getline(cin, matriculaComandante);
 
+            // Verificando que será passado uma matricula valida
             int iComandante = encontrarIndicePilotoPorMatricula(pilotos, matriculaComandante);
-
-            cout << "Digite a matrícula do Primeiro Oficial: ";
+            while (iComandante == -1)
+            {
+                cout << "Essa matricula nao existe, digite outra:" << endl;
+                getline(cin, matriculaComandante);
+                iComandante = encontrarIndicePilotoPorMatricula(pilotos, matriculaComandante);
+            }
+            
+            
+            cout << "Digite a matricula do Primeiro Oficial: ";
             getline(cin, matriculaPrimeiroOficial);
 
+            // Verificando que será passada uma matricula valida
             int iPrimeiroOficial = encontrarIndicePilotoPorMatricula(pilotos, matriculaPrimeiroOficial);
+            while (iPrimeiroOficial == - 1)
+            {
+                cout << "Essa matricula nao existe, digite outra:" << endl;
+                getline(cin, matriculaPrimeiroOficial);
+                iPrimeiroOficial = encontrarIndicePilotoPorMatricula(pilotos, matriculaPrimeiroOficial);
+            }
+            
 
             Aeronave &aeronaveSelecionada = aeronaves[iAeronave];
             Piloto &comandanteSelecionado = pilotos[iComandante];
@@ -239,26 +236,39 @@ int main()
             int codigoVoo;
             string cpf;
 
-            cout << "Digite o código do voo: ";
+            cout << "Digite o codigo do voo: ";
             cin >> codigoVoo;
             limparBuffer();
 
+            // Garantindo que será passado um codigo válido
             int iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
-            if (iVoo == -1)
+            while (iVoo == -1)
             {
-                cout << "Esse voo não existe" << endl;
+                cout << "Esse voo nao existe, digite novamente:" << endl;
+                cin >> codigoVoo;
+                limparBuffer();
+                iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
+            }
+
+            if(voos[iVoo].qtdPassageiros() == voos[iVoo].getAeronave().getCapacidade())
+            {
+                cout << "A aeronave desse voo ja esta cheia!!!" << endl;
                 continue;
             }
 
             cout << "Digite o CPF do passageiro: ";
             getline(cin, cpf);
 
+            // Garantindo que será passado um passageiro válido
             int iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
-            if (iPassageiro == -1)
+            while ((iPassageiro == -1) || voos[iVoo].passageiro_listado(cpf))
             {
-                cout << "Esse passageiro não existe" << endl;
-                continue;
+                cout << "Esse passageiro nao existe, ou ja esta inserido nesse voo, digite novamente:";
+                getline(cin, cpf);
+                iPassageiro = encontrarIndicePassageiroPorCpf(passageiros, cpf);
             }
+
+            
 
             voos[iVoo].adicionarPassageiro(passageiros[iPassageiro]);
             cout << "Passageiro adicionado com sucesso!" << endl;
@@ -267,36 +277,51 @@ int main()
         {
             for (int i = 0; i < voos.size(); i++)
             {
-                cout << voos[i].getCodigo() << ","
-                     << voos[i].getOrigem() << ","
-                     << voos[i].getDestino() << ","
-                     << voos[i].getDistancia() << ","
-                     << voos[i].getHoraDeSaida() << ","
-                     << voos[i].getPassageiros().size() << ","
-                     << voos[i].getAeronave().getCodigo() << ","
-                     << voos[i].getComandante().getMatricula() << ","
-                     << voos[i].getPrimeiroOficial().getMatricula()
-                     << "\n";
+                cout << "Codigo do voo " << i+1 << ": "<< voos[i].getCodigo() << "\n"
+                     << "Origem: " << voos[i].getOrigem() << "\n"
+                     << "Destino: " <<voos[i].getDestino() << "\n"
+                     << "Distancia: " << voos[i].getDistancia() << "\n"
+                     << "Hora de saida: " <<voos[i].getHoraDeSaida() << "\n"
+                     << "Quantidade de passageiros: " << voos[i].getPassageiros().size() << "\n"
+                     << "Codigo da aeronave: " <<voos[i].getAeronave().getCodigo() << "\n"
+                     << "Aeronave: " << voos[i].getAeronave().getModelo() << "\n"
+                     << "Matricula do comandante: " << voos[i].getComandante().getMatricula() << "\n"
+                     <<  "Matricula do primeiro oficial: " << voos[i].getPrimeiroOficial().getMatricula()
+                     << "\n\n";
             }
         }
         else if (opcao == 7)
         {
             int codigoVoo;
-            cout << "Digite o código do voo: ";
+            cout << "Digite o codigo do voo: ";
             cin >> codigoVoo;
 
+            // Garantindo que será passado um codigo válido
             int iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
-            if (iVoo == -1)
+            while (iVoo == -1)
             {
-                cout << "Esse voo não existe" << endl;
-                continue;
+                cout << "Esse voo nao existe, digite novamente:" << endl;
+                cin >> codigoVoo;
+                iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
             }
+            
             voos[iVoo].listarPassageiros();
         }
         else if (opcao == 8)
         {
             // Gerar relatórios e estatísticas
-            cout << "Função de relatórios ainda não implementada." << endl;
+            cout << "- Numero total de voos cadastrados: " << (int)voos.size() << endl << endl;
+            cout << "- Media de passageiros por voo: " << media_passageiro_por_voo(voos) << endl << endl;
+            cout << "- Passageiros que participam de mais de um voo:"<< endl;
+            passageiroMaisVoo(passageiros);
+            cout << endl << "- Voos que atingiram pelo menos 90%" << " da capacidade maxima:" << endl;
+            voo_quase_cheio(voos);
+            cout << endl <<"- As duas aeronaves que mais participaram de voos:" << endl;
+            aeronaves_mais_usadas(aeronaves);
+            cout << endl <<"Distancia total percorrida por cada aeronave:" << endl;
+            dist_total_aeronave(aeronaves, voos);
+            cout << endl;
+
         }
         else if (opcao == 9)
         {
@@ -306,7 +331,7 @@ int main()
         }
         else
         {
-            cout << "Opção inválida. Tente novamente." << endl;
+            cout << "Opcao invalida. Tente novamente." << endl;
         }
     } while (true);
 

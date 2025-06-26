@@ -1,4 +1,5 @@
 #include "../include/Voo.h"
+#include "../include/pesquisa.h"
 #include <iostream>
 using namespace std;
 
@@ -18,6 +19,16 @@ Voo::Voo(int codigo, string origem, string destino, double distancia, string hor
     this->aeronave = aeronave;
     this->comandante = comandante;
     this->primeiroOficial = primeiroOficial;
+}
+
+Voo::Voo(int codigo, string origem, string destino, double distancia, string horaDeSaida, int numeroDeEscalas, double tempoEstimado){
+    this->codigo = codigo;
+    this->origem = origem;
+    this->destino = destino;
+    this->distancia = distancia;
+    this->horaDeSaida = horaDeSaida;
+    this->numeroDeEscalas = numeroDeEscalas;
+    this->tempoEstimado = tempoEstimado;
 }
 
 // Getters
@@ -46,6 +57,8 @@ void Voo::setComandante(const Piloto &p) { comandante = p; }
 void Voo::setPrimeiroOficial(const Piloto &p) { primeiroOficial = p; }
 
 void Voo::listarPassageiros() {
+    cout << "Aeronave: " << getAeronave().getModelo() << endl;
+    cout << "Codigo da aeronave: " << getAeronave().getCodigo() << endl;
     cout << "Passageiros do voo " << codigo << ":\n";
     if (passageiros.empty()) {
         cout << "Nenhum passageiro embarcado.\n";
@@ -57,6 +70,15 @@ void Voo::listarPassageiros() {
     }
 }
 
-void Voo::adicionarPassageiro(const Passageiro &p){
+void Voo::adicionarPassageiro( Passageiro &p){
     passageiros.push_back(p);
+    p.add_voo(codigo);
+}
+
+int Voo::qtdPassageiros(){
+    return passageiros.size();
+}
+
+bool Voo::passageiro_listado (string cpf){
+    return (encontrarIndicePassageiroPorCpf(passageiros, cpf) != -1);
 }

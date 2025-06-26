@@ -15,6 +15,7 @@ private:
 public:
     // Construtor
     Piloto(string nome, string matricula, string breve, double horasDeVoo);
+    Piloto();
 
     // Getters
     string getMatricula() const;
@@ -25,6 +26,7 @@ public:
     void setMatricula(string novaMatricula);
     void setBreve(string novoBreve);
     void setHorasDeVoo(double novasHoras);
+
 };
 
 #endif // PILOTO_H

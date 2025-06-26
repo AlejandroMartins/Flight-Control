@@ -1,4 +1,4 @@
-#include "../include/Aeronave.h"
+#include "Aeronave.h"
 
 // Construtor
 Aeronave::Aeronave(int codigo, int capacidade, string modelo, double velocidadeMedia, double autonomiaDeVoo) {
@@ -7,6 +7,14 @@ Aeronave::Aeronave(int codigo, int capacidade, string modelo, double velocidadeM
     this->modelo = modelo;
     this->velocidadeMedia = velocidadeMedia;
     this->autonomiaDeVoo = autonomiaDeVoo;
+}
+
+Aeronave::Aeronave(){
+    codigo = 0;
+    capacidade = 0;
+    modelo = "";
+    velocidadeMedia = 0;
+    autonomiaDeVoo = 0;
 }
 
 // Getters
@@ -30,6 +38,10 @@ double Aeronave::getAutonomiaDeVoo() const {
     return autonomiaDeVoo;
 }
 
+int Aeronave::getCodVoo(int i){
+    return voos_aeronave[i];
+}
+
 // Setters
 void Aeronave::setCodigo(int novoCodigo) {
     codigo = novoCodigo;
@@ -50,3 +62,12 @@ void Aeronave::setVelocidadeMedia(double novaVelocidade) {
 void Aeronave::setAutonomiaDeVoo(double novaAutonomia) {
     autonomiaDeVoo = novaAutonomia;
 }
+
+int Aeronave::qtd_voo(){
+    return voos_aeronave.size();
+}
+
+void Aeronave::add_voo(int i){
+    voos_aeronave.push_back(i);
+}
+

@@ -8,6 +8,12 @@ Piloto::Piloto(string nome, string matricula, string breve, double horasDeVoo)
     this->breve = breve;
     this->horasDeVoo = horasDeVoo;
 }
+Piloto::Piloto(){
+    nome = "";
+    matricula = "";
+    breve = "";
+    horasDeVoo = 0;
+}
 
 // Getters
 string Piloto::getMatricula() const
