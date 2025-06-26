@@ -57,6 +57,8 @@ void Voo::setComandante(const Piloto &p) { comandante = p; }
 void Voo::setPrimeiroOficial(const Piloto &p) { primeiroOficial = p; }
 
 void Voo::listarPassageiros() {
+    cout << "Aeronave: " << getAeronave().getModelo() << endl;
+    cout << "Codigo da aeronave: " << getAeronave().getCodigo() << endl;
     cout << "Passageiros do voo " << codigo << ":\n";
     if (passageiros.empty()) {
         cout << "Nenhum passageiro embarcado.\n";

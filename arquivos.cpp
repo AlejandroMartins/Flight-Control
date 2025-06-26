@@ -152,7 +152,7 @@ if (fa.is_open()) {
             string codigo_voo_str;
             
             for (int i = 0; i < qtd_voos; i++) {
-                if (i > 0) getline(voos_ss, codigo_voo_str, '|');
+                if (i > 0) getline(voos_ss, codigo_voo_str, '|'); // primeiro pega a barra depois le o numero
                 getline(voos_ss, codigo_voo_str, '|');
                 int codigo_voo = stoi(codigo_voo_str);
                 a.add_voo(codigo_voo);

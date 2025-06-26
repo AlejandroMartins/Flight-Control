@@ -284,6 +284,7 @@ int main()
                      << "Hora de saida: " <<voos[i].getHoraDeSaida() << "\n"
                      << "Quantidade de passageiros: " << voos[i].getPassageiros().size() << "\n"
                      << "Codigo da aeronave: " <<voos[i].getAeronave().getCodigo() << "\n"
+                     << "Aeronave: " << voos[i].getAeronave().getModelo() << "\n"
                      << "Matricula do comandante: " << voos[i].getComandante().getMatricula() << "\n"
                      <<  "Matricula do primeiro oficial: " << voos[i].getPrimeiroOficial().getMatricula()
                      << "\n\n";
@@ -303,6 +304,7 @@ int main()
                 cin >> codigoVoo;
                 iVoo = encontrarIndiceVooPorCodigo(voos, codigoVoo);
             }
+            
             voos[iVoo].listarPassageiros();
         }
         else if (opcao == 8)
