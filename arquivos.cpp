@@ -6,13 +6,12 @@
 
 using namespace std;
 
-
- //Função para salvar todos os dados do sistema em arquivos CSV
+// Função para salvar todos os dados do sistema em arquivos CSV
 
 void salvarDados(vector<Aeronave> &aeronaves,
-                const vector<Piloto> &pilotos,
-                vector<Passageiro> &passageiros,
-                const vector<Voo> &voos)
+                 const vector<Piloto> &pilotos,
+                 vector<Passageiro> &passageiros,
+                 const vector<Voo> &voos)
 {
     // Seção 1: Salvar dados das aeronaves
     ofstream fa("./files/aeronaves.csv");
@@ -29,10 +28,10 @@ void salvarDados(vector<Aeronave> &aeronaves,
                << a.qtd_voo() << ":"; // Quantidade de voos associados
 
             // Escreve os códigos dos voos associados, separados por |
-            for(int i = 0; i < a.qtd_voo(); i++)
+            for (int i = 0; i < a.qtd_voo(); i++)
             {
                 fa << a.getCodVoo(i);
-                if(i != a.qtd_voo() - 1)
+                if (i != a.qtd_voo() - 1)
                     fa << "|"; // Separador, exceto para o último
             }
             fa << endl;
@@ -67,10 +66,10 @@ void salvarDados(vector<Aeronave> &aeronaves,
                 << p.qtd_voos() << ":"; // Quantidade de voos que participou
 
             // Lista de códigos de voos do passageiro
-            for(int i = 0; i < p.qtd_voos(); i++)
+            for (int i = 0; i < p.qtd_voos(); i++)
             {
                 fpa << p.getCodVoo(i);
-                if(i != p.qtd_voos() - 1)
+                if (i != p.qtd_voos() - 1)
                     fpa << "|"; // Separador
             }
             fpa << endl;
@@ -92,10 +91,10 @@ void salvarDados(vector<Aeronave> &aeronaves,
                << v.getHoraDeSaida() << ","
                << v.getNumeroDeEscalas() << ","
                << v.getTempoEstimado() << ","
-               << v.getAeronave().getCodigo() << "," // Referência à aeronave
-               << v.getComandante().getMatricula() << "," // Referência ao comandante
+               << v.getAeronave().getCodigo() << ","           // Referência à aeronave
+               << v.getComandante().getMatricula() << ","      // Referência ao comandante
                << v.getPrimeiroOficial().getMatricula() << "," // Referência ao oficial
-               << v.getPassageiros().size() << ","; // Quantidade de passageiros
+               << v.getPassageiros().size() << ",";            // Quantidade de passageiros
 
             // Escreve os CPFs dos passageiros separados por |
             const auto &passageiros = v.getPassageiros();
@@ -111,13 +110,13 @@ void salvarDados(vector<Aeronave> &aeronaves,
     }
 }
 
+// Função para carregar todos os dados do sistema a partir de arquivos CSV
 
- //Função para carregar todos os dados do sistema a partir de arquivos CSV
- 
 void carregarDados(vector<Aeronave> &aeronaves,
-                 vector<Piloto> &pilotos,
-                 vector<Passageiro> &passageiros,
-                 vector<Voo> &voos) {
+                   vector<Piloto> &pilotos,
+                   vector<Passageiro> &passageiros,
+                   vector<Voo> &voos)
+{
     // Limpa os vetores antes de carregar novos dados
     aeronaves.clear();
     pilotos.clear();
@@ -126,9 +125,11 @@ void carregarDados(vector<Aeronave> &aeronaves,
 
     // Seção 1: Carregar aeronaves
     ifstream fa("./files/aeronaves.csv");
-    if (fa.is_open()) {
+    if (fa.is_open())
+    {
         string linha;
-        while (getline(fa, linha)) {
+        while (getline(fa, linha))
+        {
             stringstream ss(linha);
             string codigo_str, capacidade_str, modelo, velocidade_str, autonomia_str, qtd_voos_str, voos_str;
 
@@ -151,13 +152,16 @@ void carregarDados(vector<Aeronave> &aeronaves,
             Aeronave a(codigo, capacidade, modelo, velocidade, autonomia);
 
             // Se houver voos associados, lê a lista separada por |
-            if (qtd_voos > 0) {
+            if (qtd_voos > 0)
+            {
                 getline(ss, voos_str);
                 stringstream voos_ss(voos_str);
                 string codigo_voo_str;
-                
-                for (int i = 0; i < qtd_voos; i++) {
-                    if (i > 0) getline(voos_ss, codigo_voo_str, '|'); // Ignora o separador
+
+                for (int i = 0; i < qtd_voos; i++)
+                {
+                    if (i > 0)
+                        getline(voos_ss, codigo_voo_str, '|'); // Ignora o separador
                     getline(voos_ss, codigo_voo_str, '|');
                     int codigo_voo = stoi(codigo_voo_str);
                     a.add_voo(codigo_voo); // Associa o voo à aeronave
@@ -169,11 +173,13 @@ void carregarDados(vector<Aeronave> &aeronaves,
         fa.close();
     }
 
-    // Seção 2: Carregar pilotos 
+    // Seção 2: Carregar pilotos
     ifstream fp("./files/pilotos.csv");
-    if (fp.is_open()) {
+    if (fp.is_open())
+    {
         string linha;
-        while (getline(fp, linha)) {
+        while (getline(fp, linha))
+        {
             stringstream ss(linha);
             string nome, matricula, breve;
             int horasDeVoo;
@@ -193,9 +199,11 @@ void carregarDados(vector<Aeronave> &aeronaves,
 
     // Seção 3: Carregar passageiros
     ifstream fpa("./files/passageiros.csv");
-    if (fpa.is_open()) {
+    if (fpa.is_open())
+    {
         string linha;
-        while (getline(fpa, linha)) {
+        while (getline(fpa, linha))
+        {
             stringstream ss(linha);
             string nome, cpf, numeroBilhete, voosStr, qtdVoosStr;
 
@@ -211,22 +219,25 @@ void carregarDados(vector<Aeronave> &aeronaves,
             // Lê a lista de voos associados
             getline(ss, voosStr);
             int qtdVoos = stoi(qtdVoosStr);
-            
-            if (qtdVoos > 0) {
+
+            if (qtdVoos > 0)
+            {
                 stringstream voosStream(voosStr);
                 string codigoVooStr;
-                
+
                 // Lê cada código de voo separado por |
-                for (int i = 0; i < qtdVoos; i++) {
-                    if (i > 0) {
-                        getline(voosStream, codigoVooStr, '|'); // Ignora o separador  
+                for (int i = 0; i < qtdVoos; i++)
+                {
+                    if (i > 0)
+                    {
+                        getline(voosStream, codigoVooStr, '|'); // Ignora o separador
                     }
                     getline(voosStream, codigoVooStr, '|');
                     int codigoVoo = stoi(codigoVooStr);
                     pa.add_voo(codigoVoo); // Associa o voo ao passageiro
                 }
             }
-            
+
             passageiros.push_back(pa);
         }
         fpa.close();
@@ -234,9 +245,11 @@ void carregarDados(vector<Aeronave> &aeronaves,
 
     // Seção 4: Carregar voos (mais complexo devido às referências)
     ifstream fv("./files/voos.csv");
-    if (fv.is_open()) {
+    if (fv.is_open())
+    {
         string linha;
-        while (getline(fv, linha)) {
+        while (getline(fv, linha))
+        {
             stringstream ss(linha);
             string origem, destino, matComandante, matOficial, horaSaida;
             double distancia, tempEstimado;
@@ -265,10 +278,12 @@ void carregarDados(vector<Aeronave> &aeronaves,
             // Lê a lista de CPFs dos passageiros separados por |
             string passageirosStr;
             getline(ss, passageirosStr);
-            if (numPassageiros > 0) {
+            if (numPassageiros > 0)
+            {
                 stringstream ssPass(passageirosStr);
                 string cpf;
-                while (getline(ssPass, cpf, '|')) {
+                while (getline(ssPass, cpf, '|'))
+                {
                     // Encontra o passageiro pelo CPF e adiciona à lista
                     passageirosVoo.push_back(passageiros[encontrarIndicePassageiroPorCpf(passageiros, cpf)]);
                 }
@@ -276,16 +291,17 @@ void carregarDados(vector<Aeronave> &aeronaves,
 
             // Cria o voo com os dados básicos
             Voo v(codigo, origem, destino, distancia, horaSaida, escalas, tempEstimado);
-            
+
             // Associa a aeronave (encontra pelo código)
             v.setAeronave(aeronaves[encontrarIndiceAeronavePorCodigo(aeronaves, codAeronave)]);
             // Associa o comandante (encontra pela matrícula)
-            v.setComandante(pilotos[encontrarIndicePilotoPorMatricula(pilotos, matComandante)]);            
+            v.setComandante(pilotos[encontrarIndicePilotoPorMatricula(pilotos, matComandante)]);
             // Associa o primeiro oficial (encontra pela matrícula)
             v.setPrimeiroOficial(pilotos[encontrarIndicePilotoPorMatricula(pilotos, matOficial)]);
-           
+
             // Adiciona os passageiros ao voo
-            for (auto &p : passageirosVoo) {
+            for (auto &p : passageirosVoo)
+            {
                 v.adicionarPassageiro(p);
             }
 

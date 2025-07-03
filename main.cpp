@@ -10,6 +10,9 @@
 #include <iostream>
 #include <limits>
 
+// Luiz MIguel Wojtyla Abreu Siqueira 24.1.4016
+// Alejandro Martins de Freitas 24.1.4030
+
 using namespace std;
 // comando para compilar: g++ -Iinclude main.cpp arquivos.cpp src/*.cpp -o exe
 
